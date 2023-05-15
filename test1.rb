@@ -14,35 +14,26 @@
 =end
 
 class Greeter
-
-  def initialize(boss)
-    @boss = boss
-    @last_greeted = nil
-    @people = people
-  end
-
-  def greet()
-
-    return nil
-
-    # boos enter last
-
-
-
-    #guest enter last
-
-    #consecutive greetings
+  def initialize(boss_name)
+    @boss_name = boss_name
+    @last_person = nil
   end
 
   def enters(name)
-    @last_greeted = name
+    @last_person = name
   end
 
+  def greet
+    return nil if @last_person.nil?
+
+    if @last_person == @boss_name
+      "Hello, #{@last_person}"
+    else
+      "Wellcome, #{@last_person}"
+    end
+  end
 end
 
-g = Greeter.new('Chuck')
-g.enters('John')
-puts g.greet
 
 #TESTS
 #SAMPLE CASE
@@ -61,22 +52,22 @@ For example transform_date_format(['2010/02/20', '19/12/2016', '11-18-2012', '20
 the list['20100220','20161219', '20061219', '20121118'].
 =end
 
-def transform_date_format(dates)
-  return []
-  dates.each do |date|
-    if date =~ /^(\d{4}\/(\d{2})\/(\/d{2}))$/ # YYYY/MM/DD
-      year, month, day = $1, $2, $3
-      result << "#{year}#{month}#{day}"
-    elsif date =~ /^(\d{2}\/(\d{2})\/(\/d{4}))$/ # DD/MM/YYYY
-      year, month, day = $1, $2, $3
-      result << "#{year}#{month}#{day}"
-    elsif date =~ /^(\d{2}-(\d{2})-(\/d{4}))$/ # MM-DD-YYYY
-      year, month, day = $1, $2, $3
-      result << "#{year}#{month}#{day}"
-    end
-  end
-  return result
-end
+#def transform_date_format(dates)
+#  return []
+#  dates.each do |date|
+#    if date =~ /^(\d{4}\/(\d{2})\/(\/d{2}))$/ # YYYY/MM/DD
+#      year, month, day = $1, $2, $3
+#      result << "#{year}#{month}#{day}"
+#    elsif date =~ /^(\d{2}\/(\d{2})\/(\/d{4}))$/ # DD/MM/YYYY
+#      year, month, day = $1, $2, $3
+#      result << "#{year}#{month}#{day}"
+#    elsif date =~ /^(\d{2}-(\d{2})-(\/d{4}))$/ # MM-DD-YYYY
+#      year, month, day = $1, $2, $3
+#      result << "#{year}#{month}#{day}"
+#    end
+#  end
+#  return result
+#end
 
 def transform_date_format(dates)
   result = []
