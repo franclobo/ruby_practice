@@ -1,7 +1,7 @@
 =begin
 Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
 
- 
+
 
 Example 1:
 
@@ -16,7 +16,7 @@ Example 3:
 
 Input: root = []
 Output: []
- 
+
 
 Constraints:
 
@@ -36,5 +36,20 @@ The number of nodes in the tree is in the range [0, 2000].
 # @param {TreeNode} root
 # @return {Integer[][]}
 def level_order(root)
-    
+  return [] if root.nil?
+  result = []
+  queue = []
+  queue.push(root)
+  while !queue.empty?
+    level = []
+    size = queue.size
+    size.times do
+      node = queue.shift
+      level.push(node.val)
+      queue.push(node.left) if node.left
+      queue.push(node.right) if node.right
+    end
+    result.push(level)
+  end
+  result
 end

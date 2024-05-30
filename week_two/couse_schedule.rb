@@ -4,21 +4,21 @@ There are a total of numCourses courses you have to take, labeled from 0 to numC
 For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
 Return true if you can finish all courses. Otherwise, return false.
 
- 
+
 
 Example 1:
 
 Input: numCourses = 2, prerequisites = [[1,0]]
 Output: true
-Explanation: There are a total of 2 courses to take. 
+Explanation: There are a total of 2 courses to take.
 To take course 1 you should have finished course 0. So it is possible.
 Example 2:
 
 Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
 Output: false
-Explanation: There are a total of 2 courses to take. 
+Explanation: There are a total of 2 courses to take.
 To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.
- 
+
 
 Constraints:
 
@@ -28,3 +28,28 @@ prerequisites[i].length == 2
 0 <= ai, bi < numCourses
 All the pairs prerequisites[i] are unique.
 =end
+# @param {Integer} num_courses
+# @param {Integer[][]} prerequisites
+# @return {Boolean}
+def can_finish(num_courses, prerequisites)
+  graph = {}
+  indegree = Array.new(num_courses, 0)
+  prerequisites.each do |course, prereq|
+    graph[prereq] ||= []
+    graph[prereq].push(course)
+    indegree[course] += 1
+  end
+  queue = []
+  indegree.each_with_index do |degree, course|
+    queue.push(course) if degree.zero?
+  end
+  while !queue.empty?
+    current = queue.shift
+    next_courses = graph[current] || []
+    next_courses.each do |course|
+      indegree[course] -= 1
+      queue.push(course) if indegree[course].zero?
+    end
+  end
+  indegree.all?(&:zero?)
+end

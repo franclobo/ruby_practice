@@ -9,7 +9,7 @@ class Node {
     public int val;
     public List<Node> neighbors;
 }
- 
+
 
 Test case format:
 
@@ -19,7 +19,7 @@ An adjacency list is a collection of unordered lists used to represent a finite 
 
 The given node will always be the first node with val = 1. You must return the copy of the given node as a reference to the cloned graph.
 
- 
+
 
 Example 1:
 
@@ -42,7 +42,7 @@ Example 3:
 Input: adjList = []
 Output: []
 Explanation: This an empty graph, it does not have any nodes.
- 
+
 
 Constraints:
 
@@ -66,5 +66,20 @@ The Graph is connected and all nodes can be visited starting from the given node
 # @param {Node} node
 # @return {Node}
 def cloneGraph(node)
-    
+    return nil if node.nil?
+    visited = {}
+    queue = []
+    queue.push(node)
+    visited[node] = Node.new(node.val)
+    while !queue.empty?
+        current = queue.shift
+        current.neighbors.each do |neighbor|
+        if !visited.key?(neighbor)
+            visited[neighbor] = Node.new(neighbor.val)
+            queue.push(neighbor)
+        end
+        visited[current].neighbors.push(visited[neighbor])
+        end
+    end
+    visited[node]
 end
